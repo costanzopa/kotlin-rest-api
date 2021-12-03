@@ -12,13 +12,13 @@ class BankMockRepository: BankRepository {
         Bank("5678", 0.0, 100),
     )
 
-    override fun retrieveBanks(): Collection<Bank> = banks
+    override fun getAll(): Collection<Bank> = banks
 
-    override fun retrieveBank(accountNumber: String): Bank =
+    override fun getById(accountNumber: String): Bank =
         banks.firstOrNull() { it.accountNumber == accountNumber }
             ?: throw NoSuchElementException("Could not find a bank with account number $accountNumber")
 
-    override fun createBank(bank: Bank): Bank {
+    override fun create(bank: Bank): Bank {
         if (banks.any { it.accountNumber == bank.accountNumber }) {
             throw IllegalArgumentException("Bank with account number ${bank.accountNumber} already exists.")
         }
@@ -27,7 +27,7 @@ class BankMockRepository: BankRepository {
         return bank
     }
 
-    override fun updateBank(bank: Bank): Bank {
+    override fun update(bank: Bank): Bank {
         val currentBank = banks.firstOrNull { it.accountNumber == bank.accountNumber }
             ?: throw NoSuchElementException("Could not find a bank with account number ${bank.accountNumber}")
 
@@ -37,7 +37,7 @@ class BankMockRepository: BankRepository {
         return bank
     }
 
-    override fun deleteBank(accountNumber: String) {
+    override fun deleteById(accountNumber: String) {
         val currentBank = banks.firstOrNull { it.accountNumber == accountNumber }
             ?: throw NoSuchElementException("Could not find a bank with account number $accountNumber")
 

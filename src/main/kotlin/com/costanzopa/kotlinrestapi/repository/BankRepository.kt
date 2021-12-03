@@ -4,13 +4,13 @@ import com.costanzopa.kotlinrestapi.model.Bank
 
 interface BankRepository {
 
-    fun retrieveBanks(): Collection<Bank>
+    fun getAll(): Collection<Bank>
 
-    fun retrieveBank(accountNumber: String): Bank
+    fun getById(accountNumber: String): Bank
 
-    fun createBank(bank: Bank): Bank
+    fun create(bank: Bank): Bank
 
-    fun updateBank(bank: Bank): Bank
+    fun update(bank: Bank): Bank
 
-    fun deleteBank(accountNumber: String)
+    fun deleteById(accountNumber: String)
 }
