@@ -5,7 +5,7 @@ import com.costanzopa.kotlinrestapi.repository.BankRepository
 import org.springframework.stereotype.Repository
 
 @Repository("mock")
-class BankMockRepository: BankRepository {
+class BankMockRepository : BankRepository {
     val banks = mutableListOf(
         Bank("1234", 3.14, 17),
         Bank("1010", 17.0, 0),

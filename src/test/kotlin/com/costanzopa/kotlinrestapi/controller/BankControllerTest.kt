@@ -1,7 +1,6 @@
 package com.costanzopa.kotlinrestapi.controller
 
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -16,8 +15,7 @@ import org.springframework.test.web.servlet.get
 @SpringBootTest
 @AutoConfigureMockMvc
 internal class BankControllerTest @Autowired constructor(
-    val mockMvc: MockMvc,
-    val objectMapper: ObjectMapper
+    val mockMvc: MockMvc
 ) {
 
     val baseUrl = "/api/banks"
@@ -38,6 +36,23 @@ internal class BankControllerTest @Autowired constructor(
                     content { contentType(MediaType.APPLICATION_JSON) }
                 }
         }
+    }
+
+
+    @Test
+    fun `should the bank with the given account number`() {
+        // given
+        val accountNumber = 1234
+
+        //act//assert
+        mockMvc.get("$baseUrl/$accountNumber")
+            .andDo { print() }
+            .andExpect {
+                status { isOk() }
+                content { contentType(MediaType.APPLICATION_JSON) }
+                jsonPath("$.trust") { value(3.14) }
+                jsonPath("$.transactionFee") { value(17) }
+            }
     }
 
 

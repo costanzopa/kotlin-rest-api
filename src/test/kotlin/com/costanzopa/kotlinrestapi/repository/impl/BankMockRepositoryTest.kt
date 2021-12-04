@@ -19,13 +19,12 @@ internal class BankMockRepositoryTest {
 
     @Test
     fun `should provide some bank data`() {
-      //act
-      val banks = bankMockRepository.getAll()
-      
-      //assert
+        //act
+        val banks = bankMockRepository.getAll()
+
+        //assert
         assertThat(banks).allMatch { it.accountNumber.isNotBlank() }
-      
-      
+
     }
 
 }
