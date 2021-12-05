@@ -10,5 +10,7 @@ class BankService(@Qualifier("mock") private val repository: BankMockRepository)
     fun getAll(): Collection<Bank> = repository.getAll()
     fun getById(accountNumber: String): Bank = repository.getById(accountNumber)
     fun create(bank: Bank): Bank = repository.create(bank)
+    fun update(bank: Bank): Bank = repository.update(bank)
+
 
 }
