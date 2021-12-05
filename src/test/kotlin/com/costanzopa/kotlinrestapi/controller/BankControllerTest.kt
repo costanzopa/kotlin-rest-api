@@ -39,20 +39,37 @@ internal class BankControllerTest @Autowired constructor(
     }
 
 
-    @Test
-    fun `should the bank with the given account number`() {
-        // given
-        val accountNumber = 1234
+    @Nested
+    @DisplayName("GET /api/banks/{id}")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    inner class GetBanksById {
 
-        //act//assert
-        mockMvc.get("$baseUrl/$accountNumber")
-            .andDo { print() }
-            .andExpect {
-                status { isOk() }
-                content { contentType(MediaType.APPLICATION_JSON) }
-                jsonPath("$.trust") { value(3.14) }
-                jsonPath("$.transactionFee") { value(17) }
-            }
+        @Test
+        fun `should the bank with the given account number`() {
+            // given
+            val accountNumber = 1234
+
+            //act//assert
+            mockMvc.get("$baseUrl/$accountNumber")
+                .andDo { print() }
+                .andExpect {
+                    status { isOk() }
+                    content { contentType(MediaType.APPLICATION_JSON) }
+                    jsonPath("$.trust") { value(3.14) }
+                    jsonPath("$.transactionFee") { value(17) }
+                }
+        }
+
+        @Test
+        fun `should return NOT FOUND if the account number does not exists`() {
+            // given
+            val accountNumber = "does_not_exist"
+            //act //assert
+            mockMvc.get("$baseUrl/$accountNumber")
+                .andDo { print() }
+                .andExpect { status { isNotFound() } }
+        }
+
     }
 
 
